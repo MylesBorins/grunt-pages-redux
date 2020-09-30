@@ -1,6 +1,8 @@
 # grunt-pages-redux
 > Grunt task to create pages using markdown and templates
 
+A fork of https://www.npmjs.com/package/grunt-pages
+
 ## Prerequisites
 This Grunt task uses [pygments](http://pygments.org/) which requires [Python](http://www.python.org/getit/) to be installed.
 
