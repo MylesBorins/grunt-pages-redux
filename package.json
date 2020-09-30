@@ -1,6 +1,6 @@
 {
   "name": "grunt-pages-redux",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Grunt task to create pages using markdown and templates",
   "main": "Gruntfile.js",
   "author": {
