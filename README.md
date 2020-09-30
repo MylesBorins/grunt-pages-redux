@@ -1,10 +1,6 @@
 # grunt-pages-redux
 > Grunt task to create pages using markdown and templates
 
-[![NPM version](https://badge.fury.io/js/grunt-pages.png)](http://badge.fury.io/js/grunt-pages)
-[![Dependency Status](https://david-dm.org/CabinJS/grunt-pages.png)](https://david-dm.org/CabinJS/grunt-pages)
-[![Travis Status](https://travis-ci.org/CabinJS/grunt-pages.png?branch=master)](https://travis-ci.org/CabinJS/grunt-pages)
-
 ## Prerequisites
 This Grunt task uses [pygments](http://pygments.org/) which requires [Python](http://www.python.org/getit/) to be installed.
 
