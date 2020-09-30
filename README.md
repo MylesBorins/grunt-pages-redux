@@ -7,13 +7,13 @@ This Grunt task uses [pygments](http://pygments.org/) which requires [Python](ht
 ## Getting Started
 If you haven't used Grunt before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a Gruntfile as well as install and use Grunt plugins. Once you're familiar with that process, install this plugin with this command:
 ```shell
-npm install grunt-pages --save-dev
+npm install grunt-pages-redux --save-dev
 ```
 
 Then add this line to your project's `Gruntfile.js` Gruntfile:
 
 ```javascript
-grunt.loadNpmTasks('grunt-pages');
+grunt.loadNpmTasks('grunt-pages-redux');
 ```
 
 ## Documentation
