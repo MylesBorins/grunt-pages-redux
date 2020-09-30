@@ -350,7 +350,7 @@ module.exports = function (grunt) {
    */
   lib.setTemplateEngine = function () {
     engineOptions = _.find(templateEngines, function (engine) {
-      return _.contains(engine.extensions, path.extname(_this.data.layout).toLowerCase());
+      return _.includes(engine.extensions, path.extname(_this.data.layout).toLowerCase());
     });
     templateEngine = engineOptions.engine;
   };
@@ -548,28 +548,24 @@ module.exports = function (grunt) {
     var layoutString = fs.readFileSync(_this.data.layout, 'utf8');
     var fn = templateEngine.compile(layoutString, { pretty: grunt.option('debug') ? true : false, filename: _this.data.layout });
     var postDests = [];
+    templateData.posts.forEach(post => {
+      postDests.push(post.dest);
+      delete post.dest;
+    })
+    templateData.posts.forEach((post, currentIndex) => {
+      // Pass the post data to the template via a post object
+      // adding the current index to allow for navigation between consecutive posts
+      templateData.post = _.extend(_.cloneDeep(post), { currentIndex: currentIndex });
 
-    _(templateData.posts)
-      // Remove the dest property from the posts now that they are generated
-      .each(function (post) {
-        postDests.push(post.dest);
-        delete post.dest;
-      })
-      .each(function (post, currentIndex) {
-
-        // Pass the post data to the template via a post object
-        // adding the current index to allow for navigation between consecutive posts
-        templateData.post = _.extend(_.cloneDeep(post), { currentIndex: currentIndex });
-
-        grunt.log.debug(JSON.stringify(lib.reducePostContent(templateData), null, '  '));
-        try {
-          grunt.file.write(postDests[currentIndex], fn(templateData));
-        } catch (e) {
-          console.log('\nData passed to ' + _this.data.layout.blue + ' post template:\n\n' + JSON.stringify(lib.reducePostContent(templateData), null, '  ').yellow + '\n');
-          grunt.fail.fatal(e.message);
-        }
-        grunt.log.ok('Created '.green + 'post'.blue + ' at: ' + postDests[currentIndex]);
-      });
+      grunt.log.debug(JSON.stringify(lib.reducePostContent(templateData), null, '  '));
+      try {
+        grunt.file.write(postDests[currentIndex], fn(templateData));
+      } catch (e) {
+        console.log('\nData passed to ' + _this.data.layout.blue + ' post template:\n\n' + JSON.stringify(lib.reducePostContent(templateData), null, '  ').yellow + '\n');
+        grunt.fail.fatal(e.message);
+      }
+      grunt.log.ok('Created '.green + 'post'.blue + ' at: ' + postDests[currentIndex]);
+    });
 
     // Remove the post object from the templateData now that each post has been generated
     delete templateData.post;

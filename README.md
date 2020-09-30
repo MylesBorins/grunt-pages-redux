@@ -1,19 +1,23 @@
 # grunt-pages-redux
 > Grunt task to create pages using markdown and templates
 
+[![NPM version](https://badge.fury.io/js/grunt-pages.png)](http://badge.fury.io/js/grunt-pages)
+[![Dependency Status](https://david-dm.org/CabinJS/grunt-pages.png)](https://david-dm.org/CabinJS/grunt-pages)
+[![Travis Status](https://travis-ci.org/CabinJS/grunt-pages.png?branch=master)](https://travis-ci.org/CabinJS/grunt-pages)
+
 ## Prerequisites
 This Grunt task uses [pygments](http://pygments.org/) which requires [Python](http://www.python.org/getit/) to be installed.
 
 ## Getting Started
 If you haven't used Grunt before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a Gruntfile as well as install and use Grunt plugins. Once you're familiar with that process, install this plugin with this command:
 ```shell
-npm install grunt-pages-redux --save-dev
+npm install grunt-pages --save-dev
 ```
 
 Then add this line to your project's `Gruntfile.js` Gruntfile:
 
 ```javascript
-grunt.loadNpmTasks('grunt-pages-redux');
+grunt.loadNpmTasks('grunt-pages');
 ```
 
 ## Documentation
@@ -21,7 +25,7 @@ grunt.loadNpmTasks('grunt-pages-redux');
 ### Sample config
 Here is a sample config to create a blog using grunt-pages:
 ```js
-pages-redux: {
+pages: {
   options: {
     pageSrc: 'src/pages'
   },
@@ -113,7 +117,7 @@ You can also specify the `url` as a function which receives a post's metadata an
 Here is an example config which demonstrates how to implement the `url` as a function:
 
 ```js
-pages-redux: {
+pages: {
   customURL: {
     src: 'posts',
     dest: 'dist',
@@ -157,7 +161,7 @@ All [options accepted by dylang/node-rss](https://github.com/dylang/node-rss#fee
 
 Here is a sample config to create a blog with an RSS feed using grunt-pages:
 ```js
-pages-redux: {
+pages: {
   options: {
     pageSrc: 'src/pages',
     rss: {
@@ -217,7 +221,7 @@ Object or an array of objects containing config for pagination. This option gene
 ### Config using the default pagination scheme
 
 ```js
-pages-redux: {
+pages: {
   options: {
     pagination: {
       postsPerPage: 3,
@@ -323,7 +327,7 @@ This function returns an array of post groups to be rendered as list pages. It t
 Here is a sample pagination config which paginates using the `tags` property of each post:
 
 ```js
-pages-redux: {
+pages: {
   options: {
     pagination: {
       listPage: 'src/layouts/tagListPage.jade',
