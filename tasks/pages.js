@@ -12,11 +12,11 @@ var path = require('path');
 var url  = require('url');
 
 require('colors');
-var _          = require('lodash');
-var marked     = require('marked');
-var fs         = require('node-fs');
-var pygmentize = require('pygmentize-bundled');
-var RSS        = require('rss');
+const _          = require('lodash');
+const { marked }     = require('marked');
+const fs         = require('node-fs');
+const pygmentize = require('pygmentize-bundled');
+const RSS        = require('rss');
 
 var templateEngines = {
   ejs: {
