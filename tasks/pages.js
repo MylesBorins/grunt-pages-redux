@@ -15,7 +15,6 @@ require('colors');
 const _          = require('lodash');
 const { marked }     = require('marked');
 const fs         = require('node-fs');
-const pygmentize = require('pygmentize-bundled');
 const RSS        = require('rss');
 
 var templateEngines = {
@@ -184,17 +183,17 @@ module.exports = function (grunt) {
         renderer: renderer,
         gfm: true,
         anchors: true,
-        highlight: function (code, lang, callback) {
-
-          // Use [pygments](http://pygments.org/) for syntax highlighting
-          pygmentize({ lang: lang, format: 'html' }, code, function (err, result) {
-            if (!result) {
-              grunt.fail.fatal('Syntax highlighting failed, make sure you have python installed.');
-            }
-
-            callback(err, result.toString());
-          });
-        }
+        // highlight: function (code, lang, callback) {
+        //
+        //   // Use [pygments](http://pygments.org/) for syntax highlighting
+        //   pygmentize({ lang: lang, format: 'html' }, code, function (err, result) {
+        //     if (!result) {
+        //       grunt.fail.fatal('Syntax highlighting failed, make sure you have python installed.');
+        //     }
+        //
+        //     callback(err, result.toString());
+        //   });
+        // }
       }, customMarkedOptions);
 
       // Extend methods by adding current post as an additional argument
