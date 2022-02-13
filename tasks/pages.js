@@ -23,9 +23,9 @@ var templateEngines = {
     engine: require('ejs'),
     extensions: ['.ejs']
   },
-  jade: {
-    engine: require('jade'),
-    extensions: ['.jade']
+  pug: {
+    engine: require('pug'),
+    extensions: ['.pug']
   },
   handlebars: {
     engine: require('handlebars'),

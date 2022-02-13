@@ -29,14 +29,14 @@
     }
   ],
   "dependencies": {
-    "colors": "~0.6.0-1",
-    "ejs": "~0.8.4",
+    "colors": "^1.4.0",
+    "ejs": "^3.1.6",
     "handlebars": "^4.7.6",
-    "jade": "~1.0.0",
     "lodash": "^4.17.20",
-    "marked": "^1.2.0",
+    "marked": "^4.0.12",
     "node-fs": "~0.1.7",
-    "pygmentize-bundled": "~2.1.0",
+    "pug": "^3.0.2",
+    "pygmentize-bundled": "^2.3.0",
     "rss": "^1.2.2"
   },
   "keywords": [
