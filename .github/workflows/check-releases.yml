@@ -12,6 +12,12 @@ jobs:
   check-releases:
     runs-on: ubuntu-latest
     steps:
-      - run: gh api repos/mylesborins/grunt-pages-redux/releases
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checks releases for drafts
+        uses: actions/github-script@v4.0.2
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const {data} = await github.request(`GET /repos/${{ github.repository }}/releases`);
+            if (data.some(release => release.draft)) {
+              console.log('Draft Found');
+            }
