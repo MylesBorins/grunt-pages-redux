@@ -1,0 +1,17 @@
+# This is a basic workflow that is manually triggered
+
+name: Check Releases
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  check-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh api repos/mylesborins/grunt-pages-redux/releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
