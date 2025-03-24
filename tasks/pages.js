@@ -12,10 +12,10 @@ var path = require('path');
 var url  = require('url');
 
 require('colors');
-const _          = require('lodash');
+const _ = require('lodash');
 const { marked }     = require('marked');
-const fs         = require('node-fs');
-const RSS        = require('rss');
+const fs = require('node-fs');
+const RSS = require('rss');
 
 var templateEngines = {
   ejs: {
@@ -76,10 +76,6 @@ module.exports = function (grunt) {
   var start = new Date().getTime();
 
   grunt.registerMultiTask('pages', 'Creates pages from markdown and templates.', function () {
-
-    // Task is asynchronous due to usage of pygments syntax highlighter written in python
-    var done = this.async();
-
     var cacheFile;
 
     // Create a reference to the the context object and task options
@@ -123,16 +119,14 @@ module.exports = function (grunt) {
     }
 
     grunt.file.recurse(this.data.src, function (postpath) {
-
       // Don't parse unmodified posts
       if (unmodifiedPostPaths && unmodifiedPostPaths.indexOf(postpath) !== -1) {
         return;
       }
-
       // Don't include draft posts
       if (path.basename(postpath).indexOf('_') === 0) {
         if (++parsedPosts === numPosts) {
-          lib.renderPostsAndPages(postCollection, cacheFile, done);
+          lib.renderPostsAndPages(postCollection, cacheFile);
         }
         return;
       }
@@ -183,17 +177,13 @@ module.exports = function (grunt) {
         renderer: renderer,
         gfm: true,
         anchors: true,
-        // highlight: function (code, lang, callback) {
-        //
-        //   // Use [pygments](http://pygments.org/) for syntax highlighting
-        //   pygmentize({ lang: lang, format: 'html' }, code, function (err, result) {
-        //     if (!result) {
-        //       grunt.fail.fatal('Syntax highlighting failed, make sure you have python installed.');
-        //     }
-        //
-        //     callback(err, result.toString());
-        //   });
-        // }
+        highlight: function (code, lang) {
+          const hljs = require('highlight.js');
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          const highlighted = hljs.highlight(code, { language }).value;
+          return highlighted;
+        },
+        langPrefix: 'hljs language-' // highlight.js css expects a top-level 'hljs' class.
       }, customMarkedOptions);
 
       // Extend methods by adding current post as an additional argument
@@ -217,7 +207,7 @@ module.exports = function (grunt) {
 
         // Once all the source posts are parsed, we can generate the html posts
         if (++parsedPosts === numPosts) {
-          lib.renderPostsAndPages(postCollection, cacheFile, done);
+          lib.renderPostsAndPages(postCollection, cacheFile);
         }
       });
     });
@@ -358,9 +348,8 @@ module.exports = function (grunt) {
    * Renders posts and pages once all posts have been parsed
    * @param  {Array}    postCollection Collection of parsed posts with the content and metadata properties
    * @param  {String}   cacheFile      Pathname of file to write post data to for future caching of unmodified posts
-   * @param  {Function} done           Callback to call once grunt-pages is done
    */
-  lib.renderPostsAndPages = function (postCollection, cacheFile, done) {
+  lib.renderPostsAndPages = function (postCollection, cacheFile) {
     var templateData = { posts: postCollection };
 
     lib.setTemplateEngine();
@@ -432,7 +421,6 @@ module.exports = function (grunt) {
     if (grunt.option('bench')) {
       console.log('Task'.yellow + ' took ' + (new Date().getTime() - start) / 1000 + ' seconds.');
     }
-    done();
   };
 
   /**
